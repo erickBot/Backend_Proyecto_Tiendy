@@ -1,46 +1,93 @@
 const { response } = require('express');
+const bcryptjs = require('bcryptjs');
 
-
-    const userGet = (req, res = response)=> {
-        
-        const query = req.query;
-
-        res.json({
-            msg: 'get API - Controlador',
-            query: query
-        });
-    }
-
-    const userPost = (req, res = response)=>{
-
-        const { nombre , correo , password } = req.body;
-
-        res.status(201).json({
-            msg: 'post API - Controlador',
-            nombre: nombre,
-            correo: correo
-        });
-    }
-
-    const userDelete = (req, res = response)=>{
-        res.json({
-            msg: 'delete API - Controlador'
-        });
-    }
-
-    const userPut = (req, res = response)=>{
-
-        const id  = req.params.id;
-
-        res.json({
-            msg: 'put API - Controlador',
-            id: id
-        });
-    }
+const User = require('../models/user');
 
 module.exports = {
-    userGet,
-    userPost,
-    userPut,
-    userDelete
+
+    async getAll (req, res ){
+
+        try{
+           const users = await User.find();
+
+            res.status(200).json({
+                data: users
+            });
+
+        }catch(err){
+            console.log(err);
+            return res.status(404).json({
+                msg: 'Ocurrio un error al obtener todos los usuarios'
+            });
+        }
+    },
+
+    async  create (req, res ){
+
+        try{
+            const { name, email, password} = req.body;
+            const  user = new User({name, email, password});
+            //encriptar password
+            const salt = bcryptjs.genSaltSync();
+            user.password = bcryptjs.hashSync(password, salt);
+            user.rol = 'USER_ROLE';
+            //almacena en Mongo DB
+            await user.save();
+    
+            res.status(201).json({
+                msg: 'El registro se realizo con exito, ahora inicie sesion'
+            });
+
+        }catch(err){
+            console.log(err);
+            return res.status(400).json({
+                msg: 'Ocurrio un error al registrar usuario!'
+            });
+        }
+    },
+
+    async  update  (req, res ){
+
+        try{
+
+            const id  = req.params.id;
+            const body = req.body;
+
+            const user = await User.findByIdAndUpdate( id, body, {new: true});
+
+            res.status(201).json({
+                msg: 'Usuario actualizado correctamente',
+                data: user
+            });
+
+        }catch(err){
+            console.log(err);
+            return res.status(400).json({
+                msg: 'Ocurrio un error al actualizar usuario'
+            });
+        }
+
+    },
+
+    async delete (req, res){
+        try{
+            const id  = req.params.id;
+
+            const user = await User.findByIdAndUpdate(id, {  status: false });
+   
+            res.status(201).json({
+                msg: 'Usuario eliminado correctamente',
+                user
+            });
+
+        }catch(err){
+            console.log(err);
+            return res.status(400).json({
+                msg: 'Ocurrio un error al eliminar usuario'
+            });
+        }
+    },
 }
+
+
+
