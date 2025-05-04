@@ -7,7 +7,7 @@ const generarJWT = (uid) =>{
 
         const payload = { uid };
 
-        jwt.sign(payload,Keys.secretOrKey, {
+        jwt.sign(payload, Keys.secretOrKey, {
             expiresIn: '4h'
         },(err, token) =>{
             if(err){
@@ -17,9 +17,7 @@ const generarJWT = (uid) =>{
                 resolve(token);
             }
         })
-
     });
-
 }
 
 module.exports = {
