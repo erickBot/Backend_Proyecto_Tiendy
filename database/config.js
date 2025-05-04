@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
-const mongoDB = require('../config/mongo_url');
+require('dotenv').config();
 
 const dbConnection = async() => {
 
     try{
 
-        await mongoose.connect('mongodb+srv://pacasystems:uH8tif5KX5ciw6BG@clustertesttiendy.8q7p5c8.mongodb.net/tiendyDB', {
+        await mongoose.connect(process.env.mongoURL, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useCreateIndex: true,
