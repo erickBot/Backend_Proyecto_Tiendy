@@ -1,13 +1,11 @@
 const mongoose = require('mongoose');
 const mongoDB = require('../config/mongo_url');
 
-console.log(mongoDB.url);
-
 const dbConnection = async() => {
 
     try{
 
-        await mongoose.connect(mongoDB.url, {
+        await mongoose.connect('mongodb+srv://pacasystems:uH8tif5KX5ciw6BG@clustertesttiendy.8q7p5c8.mongodb.net/tiendyDB', {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useCreateIndex: true,
