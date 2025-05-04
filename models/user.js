@@ -22,6 +22,10 @@ const UsersSchema = Schema({
         type: String,
 
     },
+    phone:{
+        type: String,
+
+    },
     rol:{
         type: String,
         required: true,
