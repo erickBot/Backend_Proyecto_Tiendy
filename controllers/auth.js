@@ -40,6 +40,7 @@ module.exports = {
                 "id": myUser.id,
                 "name": myUser.name,
                 "email": myUser.email,
+                "google": myUser.google,
                 "status":myUser.status,
                 "rol": myUser.rol,
                 "token": token
@@ -58,7 +59,25 @@ module.exports = {
             });
         }
 
-    }
+    },
+
+        async logout (req, res){
+            try{
+                const id  = req.params.id;
+    
+                const user = await User.findByIdAndUpdate(id, {  status: false });
+       
+                res.status(201).json({
+                    msg: 'Logout exitoso'
+                });
+    
+            }catch(err){
+                console.log(err);
+                return res.status(400).json({
+                    msg: 'Ocurrio un error'
+                });
+            }
+        },
 }
 
 
