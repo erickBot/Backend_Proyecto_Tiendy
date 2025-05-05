@@ -44,14 +44,16 @@ module.exports = {
             await newProduct.save();
 
             res.status(201).json({
-                msg: 'Producto creado con exito'
+                msg: 'Producto creado con exito',
+                success: true
             });
 
         }catch(err){
             console.log(err);
             return res.status(400).json({
                 msg:'Ocurrio un error al crear producto',
-                error: err
+                error: err,
+                success: false
             });
         }
     },

@@ -25,8 +25,8 @@ module.exports = {
     async  create (req, res ){
 
         try{
-            const { name, email, password} = req.body;
-            const  user = new User({name, email, password});
+            const { name, email, phone, password} = req.body;
+            const  user = new User({name, email, phone, password});
             //encriptar password
             const salt = bcryptjs.genSaltSync();
             user.password = bcryptjs.hashSync(password, salt);
@@ -35,13 +35,16 @@ module.exports = {
             await user.save();
     
             res.status(201).json({
-                msg: 'El registro se realizo con exito, ahora inicie sesion'
+                msg: 'El registro se realizo con exito, ahora inicie sesion',
+                success: true
             });
 
         }catch(err){
             console.log(err);
             return res.status(400).json({
-                msg: 'Ocurrio un error al registrar usuario!'
+                msg: 'Ocurrio un error al registrar usuario!',
+                error: err,
+                success: false
             });
         }
     },
