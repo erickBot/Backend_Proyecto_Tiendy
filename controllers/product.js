@@ -9,13 +9,15 @@ module.exports = {
             const products = await Product.find();
     
             res.status(200).json({
-                data: products
+                data: products,
+                success: true
             });
     
         }catch(err){
             console.log(err);
             return res.status(400).json({
-                msg:'Ocurrio un error al obtener las categorias'
+                msg:'Ocurrio un error al obtener las categorias',
+                success: false
             });
         }
     
@@ -30,7 +32,8 @@ module.exports = {
             
                 if (myProduct){
                     return res.status(400).json({
-                        msg: `El producto ${ myCategory.name }, ya existe`
+                        msg: `El producto ${ myCategory.name }, ya existe`,
+                        success: false
                     })
                 }
 
@@ -68,13 +71,15 @@ module.exports = {
     
             res.status(201).json({
                 msg: 'Prodcuto fue actualizado correctamente',
+                success: true,
                 data: producto
             });
     
         }catch(err){
             console.log(err);
             return res.status(400).json({
-                msg:'Ocurrio un error al actualizar producto'
+                msg:'Ocurrio un error al actualizar producto',
+                success: false
             });
         }
     },
@@ -86,13 +91,15 @@ module.exports = {
                 const product = await Product.findByIdAndDelete(id);
         
                 res.status(201).json({
-                    msg: 'Producto eliminado correctamente'
+                    msg: 'Producto eliminado correctamente',
+                    success: true
                 });
         
             }catch(err){
                 console.log(err);
                 return res.status(400).json({
-                     msg: 'Ocurrio un error al eliminar producto'
+                     msg: 'Ocurrio un error al eliminar producto',
+                     success: false
                 });
             }
         },

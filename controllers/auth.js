@@ -16,7 +16,8 @@ module.exports = {
             
             if (!myUser){
                 return res.status(401).json({
-                    msg: 'Email no encontrado!'
+                    msg: 'Email no encontrado!',
+                    success: false
                 });
             }
             //validar el password
@@ -24,7 +25,8 @@ module.exports = {
 
             if (!validatePassword){
                 return res.status(401).json({
-                    msg: 'Password incorrecto!'
+                    msg: 'Password incorrecto!',
+                    success: false
                 });
             }
 
@@ -33,7 +35,8 @@ module.exports = {
 
             if (!token){
                 return res.status(401).json({
-                    msg: 'Ocurrio un error al generar token'
+                    msg: 'Ocurrio un error al generar token',
+                    success: false
                 });
             }
             //construye la data que se debe devolver al usuario
@@ -45,11 +48,13 @@ module.exports = {
                 "status":myUser.status,
                 "rol": myUser.rol,
                 "img":myUser.img,
+                "phone":myUser.phone,
                 "token": token
             }
            
             res.status(201).json({
                 msg: 'Usuario autenticado',
+                success: true,
                 data: body
             });
             
@@ -57,6 +62,7 @@ module.exports = {
             console.log(err);
             return res.status(401).json({
                 msg: 'Ocurrio un error al iniciar sesion',
+                success: false,
                 error: err
             });
         }
@@ -70,13 +76,15 @@ module.exports = {
             const user = await User.findByIdAndUpdate(id, {  status: false });
        
             res.status(201).json({
-                 msg: 'Logout exitoso'
+                 msg: 'Logout exitoso',
+                 success: true
             });
     
         }catch(err){
             console.log(err);
             return res.status(400).json({
-                msg: 'Ocurrio un error'
+                msg: 'Ocurrio un error',
+                success: false
             });
         }
     },
@@ -86,9 +94,12 @@ module.exports = {
         try{
             const { id_token }  = req.body;
 
+            //console.log('token', id_token);
+
             const { name, email, picture} = await googleVerify(id_token);
 
             let user = await User.findOne({ email });
+  
 
             if (!user){
                 //crearlo
@@ -101,17 +112,19 @@ module.exports = {
                 user = new User( data );
                 await user.save();
 
+
             }
             //si el usuario de google en DB es false
             if (!user.status){
                 return res.status(401).json({
                     msg:'Usuario bloqueado',
                     success: false
-                })
+                });
             }
 
             //generar JWT
             const token = await Jwt.generarJWT(user.id);
+
             //construye la data que se debe devolver al usuario
             const body = {
                 "id": user.id,
@@ -121,9 +134,9 @@ module.exports = {
                 "status":user.status,
                 "rol": user.rol,
                 "img": user.img,
+                "phone":user.phone,
                 "token": token
-            }
-                    
+            }             
             
             res.status(201).json({
                 msg: 'Usuario autenticado con google',

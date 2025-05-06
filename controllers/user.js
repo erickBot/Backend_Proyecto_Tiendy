@@ -11,13 +11,15 @@ module.exports = {
            const users = await User.find();
 
             res.status(200).json({
-                data: users
+                data: users,
+                success: true
             });
 
         }catch(err){
             console.log(err);
             return res.status(404).json({
-                msg: 'Ocurrio un error al obtener todos los usuarios'
+                msg: 'Ocurrio un error al obtener todos los usuarios',
+                success: false
             });
         }
     },
@@ -53,20 +55,25 @@ module.exports = {
 
         try{
 
-            const id  = req.params.id;
-            const body = req.body;
+            const { id, name, phone, img } = req.body;
 
-            const user = await User.findByIdAndUpdate( id, body, {new: true});
+            const data = {
+                name, phone, img
+            };
+
+            const user = await User.findByIdAndUpdate( id, data, {new: true});
 
             res.status(201).json({
                 msg: 'Usuario actualizado correctamente',
+                success: true,
                 data: user
             });
 
         }catch(err){
             console.log(err);
             return res.status(400).json({
-                msg: 'Ocurrio un error al actualizar usuario'
+                msg: 'Ocurrio un error al actualizar usuario',
+                success: false
             });
         }
 

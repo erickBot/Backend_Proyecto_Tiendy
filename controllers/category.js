@@ -9,13 +9,15 @@ module.exports = {
             const categories = await Category.find();
 
             res.status(200).json({
+                success: true,
                 data: categories
             });
 
         }catch(err){
             console.log(err);
             return res.status(400).json({
-                msg:'Ocurrio un error al obtener las categorias'
+                msg:'Ocurrio un error al obtener las categorias',
+                success: false
             });
         }
 
@@ -30,7 +32,8 @@ module.exports = {
 
             if (myCategory){
                 return res.status(400).json({
-                    msg: `La categoria ${ myCategory.name }, ya existe`
+                    msg: `La categoria ${ myCategory.name }, ya existe`,
+                    success: false
                 })
             }
             //preparar la data a guardar
@@ -44,13 +47,15 @@ module.exports = {
 
             res.status(201).json({
                 msg: 'Categoria creada con exito',
+                success: true,
                 data: newCategory
             });
 
         }catch(err){
             console.log(err);
             return res.status(400).json({
-                msg:'Ocurrio un error al crear categoria'
+                msg:'Ocurrio un error al crear categoria',
+                success: false
             });
         }
     },
@@ -65,13 +70,15 @@ module.exports = {
 
             res.status(201).json({
                 msg: 'Categoria fue actualizada correctamente',
+                success: true,
                 data: category
             });
 
         }catch(err){
             console.log(err);
             return res.status(400).json({
-                msg:'Ocurrio un error al actualizar categoria'
+                msg:'Ocurrio un error al actualizar categoria',
+                success: false
             });
         }
     },
@@ -83,13 +90,15 @@ module.exports = {
             const category = await Category.findByIdAndDelete(id);
     
             res.status(201).json({
-                msg: 'Categoria eliminada correctamente'
+                msg: 'Categoria eliminada correctamente',
+                success: true
             });
     
         }catch(err){
             console.log(err);
             return res.status(400).json({
-                 msg: 'Ocurrio un error al eliminar categoria'
+                 msg: 'Ocurrio un error al eliminar categoria',
+                 success: false
             });
         }
     },

@@ -12,7 +12,8 @@ const validateJWT = async (req, res, next)=>{
 
         if(!token){
             return res.status(401).json({
-                msg: 'No hay token en la peticion'
+                msg: 'No hay token en la peticion',
+                success: false
             });
         }
         const { uid } = jwt.verify(token, Keys.secretOrKey );
@@ -21,13 +22,15 @@ const validateJWT = async (req, res, next)=>{
         //validar user
         if(!user){
             return res.status(401).json({
-                msg: 'Usuario no registrado'
+                msg: 'Usuario no registrado',
+                success: false
             });
         }
         //verificar si el uid tienen estado true
         if(!user.status){
             return res.status(401).json({
-                msg: 'Usuario con estado false'
+                msg: 'Usuario con estado false',
+                success: false
             });
         }
         //enviar el usuario en la request
@@ -38,6 +41,7 @@ const validateJWT = async (req, res, next)=>{
     }catch(err){
         return res.status(401).json({
             msg: 'Token no valido',
+            success: false,
             error: err
         });
     }

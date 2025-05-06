@@ -5,7 +5,7 @@ const { adminRol } = require('../middlewares/validate-roles');
 const router = Router();
 
 router.post('/register', User.create);
-router.put('/update/:id',[ validateJWT ], User.update);
+router.put('/update',[ validateJWT ], User.update);
 router.get('/getAll', [ validateJWT ], User.getAll);
 router.delete('/delete/:id', [  validateJWT, adminRol], User.delete);
   
