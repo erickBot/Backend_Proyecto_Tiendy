@@ -25,8 +25,7 @@ module.exports = {
 
     async create (req, res){
         try{
-
-            const { name, description } = req.body;
+            const { name, description, img} = req.body;
             //validar si existe el nombre de la categoria
             const myCategory = await Category.findOne({ name });
 
@@ -38,7 +37,7 @@ module.exports = {
             }
             //preparar la data a guardar
             const data = {
-                name, description
+                name, description, img
             }
 
             const newCategory = new Category( data );
