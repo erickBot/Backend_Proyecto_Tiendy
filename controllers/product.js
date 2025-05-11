@@ -16,7 +16,28 @@ module.exports = {
         }catch(err){
             console.log(err);
             return res.status(400).json({
-                msg:'Ocurrio un error al obtener las categorias',
+                msg:'Ocurrio un error al obtener los productos',
+                success: false
+            });
+        }
+    
+    },
+
+    async getByIdCategory(req, res){
+    
+        try{
+            const idCategory = req.params.id_category;
+            const products = await Product.findOne({idCategory});
+    
+            res.status(200).json({
+                data: products,
+                success: true
+            });
+    
+        }catch(err){
+            console.log(err);
+            return res.status(400).json({
+                msg:'Ocurrio un error al obtener los productos',
                 success: false
             });
         }
