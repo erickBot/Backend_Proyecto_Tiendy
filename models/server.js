@@ -11,6 +11,10 @@ class Server{
         this.authPath = '/api/auth';
         this.categoryPath = '/api/categories'
         this.productPath = '/api/products'
+        this.storePath = '/api/stores'
+        this.addressPath = '/api/address'
+        this.rolPath = '/api/roles'
+        this.orderPath = '/api/orders'
         //conectar a base de datos
         this.connectDB();
         //Middlewares
@@ -39,6 +43,10 @@ class Server{
         this.app.use(this.authPath, require('../routes/auth'));
         this.app.use(this.categoryPath, require('../routes/category'));
         this.app.use(this.productPath, require('../routes/product'));
+        this.app.use(this.storePath, require('../routes/store'));
+        this.app.use(this.addressPath, require('../routes/address'));
+        this.app.use(this.rolPath, require('../routes/rol'));
+        this.app.use(this.orderPath, require('../routes/order'));
     }
 
     listen(){

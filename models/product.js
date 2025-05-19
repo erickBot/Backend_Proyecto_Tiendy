@@ -18,6 +18,10 @@ const ProductSchema = Schema({
         type: Number,
         default:0
     },
+    quantity:{
+        type: Number,
+        default:0
+    },
    id_category:{
         type: Schema.Types.ObjectId,
         ref:'Categories',

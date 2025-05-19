@@ -15,7 +15,7 @@ const UsersSchema = Schema({
     },
     password:{
         type: String,
-        required:[true, 'El contrasena es oblogatorio']
+        required:[true, 'La contrasena es oblogatorio']
 
     },
     img:{
@@ -28,9 +28,9 @@ const UsersSchema = Schema({
 
     },
     rol:{
-        type: String,
+        type: Array,
         required: true,
-        emun: ['ADMIN_ROLE', 'USER_ROLE']
+        emun: ['ADMIN_ROLE', 'USER_ROLE', 'DELIVERY_ROL']
 
     },
     status:{
@@ -40,6 +40,10 @@ const UsersSchema = Schema({
     google:{
         type: Boolean,
         default: false
+    },
+    id_store:{
+        type: Schema.Types.ObjectId,
+        ref:'stores'
     },
 });
 

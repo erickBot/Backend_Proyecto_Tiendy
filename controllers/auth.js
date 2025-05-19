@@ -49,7 +49,8 @@ module.exports = {
                 "rol": myUser.rol,
                 "img":myUser.img,
                 "phone":myUser.phone,
-                "token": token
+                "token": token,
+                "id_store":myUser.id_store
             }
            
             res.status(201).json({
@@ -94,19 +95,16 @@ module.exports = {
         try{
             const { id_token }  = req.body;
 
-            //console.log('token', id_token);
-
             const { name, email, picture} = await googleVerify(id_token);
 
             let user = await User.findOne({ email });
   
-
             if (!user){
                 //crearlo
                 const salt = bcryptjs.genSaltSync();
                 const password = bcryptjs.hashSync('123456', salt);
                 const data = {
-                    name, email, img: picture, password, google: true, rol: 'USER_ROLE'
+                    name, email, img: picture, password, google: true, rol: ['USER_ROLE']
                 };
 
                 user = new User( data );
@@ -135,7 +133,8 @@ module.exports = {
                 "rol": user.rol,
                 "img": user.img,
                 "phone":user.phone,
-                "token": token
+                "token": token,
+                "id_store":user.id_store
             }             
             
             res.status(201).json({

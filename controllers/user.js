@@ -32,7 +32,7 @@ module.exports = {
             //encriptar password
             const salt = bcryptjs.genSaltSync();
             user.password = bcryptjs.hashSync(password, salt);
-            user.rol = 'USER_ROLE';
+            user.rol = ['USER_ROLE'];
             //almacena en Mongo DB
             await user.save();
     
@@ -55,11 +55,13 @@ module.exports = {
 
         try{
 
-            const { id, name, phone, img } = req.body;
+            const { id, name, phone, img, rol } = req.body;
 
             const data = {
-                name, phone, img
+                name, phone, img, rol
             };
+
+            console.log(data);
 
             const user = await User.findByIdAndUpdate( id, data, {new: true});
 
