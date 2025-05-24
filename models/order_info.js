@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-const OrderSchema = Schema({
+const OrderInfoSchema = Schema({
 
     id_category:{
         type: Schema.Types.ObjectId,
@@ -70,4 +70,4 @@ const OrderSchema = Schema({
     },
 });
 
-module.exports = model('Orders', OrderSchema);
+module.exports = model('Order_Infos', OrderInfoSchema);

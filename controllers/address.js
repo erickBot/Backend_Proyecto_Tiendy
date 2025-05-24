@@ -8,7 +8,7 @@ module.exports = {
         try{
             const idUser = req.params.id_user;
 
-            console.log('ID_USER:', idUser);
+           // console.log('ID_USER:', idUser);
             const address= await Address.find({'id_user':idUser});
     
             res.status(200).json({
