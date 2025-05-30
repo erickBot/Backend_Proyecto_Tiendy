@@ -29,7 +29,28 @@ module.exports = {
     
         try{
             const idUser = req.params.id_user;
-            const orders= await Order.findOne({'id_client':idUser});
+            const orders= await Order.find({'id_client':idUser}).sort({timestamp: -1});
+    
+            res.status(200).json({
+                data: orders,
+                success: true
+            });
+    
+        }catch(err){
+            console.log(err);
+            return res.status(400).json({
+                msg:'Ocurrio un error al obtener las ordenes',
+                success: false
+            });
+        }
+    
+    },
+
+    async getByIdStore(req, res){
+    
+        try{
+            const idStore = req.params.id_store;
+            const orders= await Order.find({'id_store':idStore}).sort({timestamp: -1});
     
             res.status(200).json({
                 data: orders,
@@ -50,6 +71,7 @@ module.exports = {
         try{
 
             const body = req.body;
+            body.created_at = new Date();
 
             console.log(body);
       

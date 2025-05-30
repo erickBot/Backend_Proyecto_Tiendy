@@ -1,5 +1,6 @@
 const express = require('express');
 const OrderRequest = require ('../models/order_request');
+const OrderSocket = require('../helpers/order_socket');
 
 module.exports = {
 
@@ -45,6 +46,29 @@ module.exports = {
         }
     
     },
+    async getByStatus(req, res){
+    
+        try{
+            const status = req.params.status;
+
+            console.log('STATUS:', status);
+            //ordena por timestamp
+            const orders = await OrderRequest.find({ 'status':status }).sort({ timestamp: -1});
+    
+            res.status(200).json({
+                data: orders,
+                success: true
+            });
+    
+        }catch(err){
+            console.log(err);
+            return res.status(400).json({
+                msg:'Ocurrio un error al obtener las ordenes',
+                success: false
+            });
+        }
+    
+    },
 
     async create (req, res){
         try{
@@ -65,6 +89,8 @@ module.exports = {
                 //almacenar en Mongo DB
                 await order.save();
             }
+            //llama al scoket
+            //OrderSocket.call();
 
             res.status(201).json({
                 msg: 'Orden enviada con exito',

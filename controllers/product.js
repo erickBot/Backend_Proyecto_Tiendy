@@ -43,6 +43,31 @@ module.exports = {
         }
     
     },
+    async findByName(req, res){
+    //busca por categorya y nombe de producto
+        try{
+            const query = req.params.name;
+            const idCategory = req.params.id_category;
+            console.log(query);
+            const results = await Product.find({
+                id_category: idCategory,
+                name: { $regex: query, $options: 'i'}
+            }).limit(20);
+    
+            res.status(200).json({
+                data: results,
+                success: true
+            });
+    
+        }catch(err){
+            console.log(err);
+            return res.status(400).json({
+                msg:'Error en la busqueda',
+                success: false
+            });
+        }
+    
+    },
 
     async create (req, res){
         try{

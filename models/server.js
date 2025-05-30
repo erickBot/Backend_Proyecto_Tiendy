@@ -1,11 +1,15 @@
 const express = require('express');
 const cors = require('cors');
+const server = require('http');
+const io = require('socket.io');
+const orderSocket = require('../helpers/order_socket');
+
 const { dbConnection } = require('../database/config');
 
 class Server{
 
     constructor(){
-        this.app = express();
+        this.app = express();//coneccion de socket
         this.port = process.env.PORT || 3000;
         this.usuariosPath = '/api/usuarios';
         this.authPath = '/api/auth';
@@ -17,14 +21,14 @@ class Server{
         this.orderPath = '/api/orders'
         //para los clientes
         this.orderRequestPath = '/api/orders_request'
-        //para los negocios
-        this.orderInfoPath = '/api/orders_info'
         //conectar a base de datos
         this.connectDB();
         //Middlewares
         this.middlewares();
         //rutas
         this.routes();
+        //socket io
+        //this.socket();
     }
 
     async connectDB(){
@@ -52,12 +56,17 @@ class Server{
         this.app.use(this.rolPath, require('../routes/rol'));
         this.app.use(this.orderPath, require('../routes/order'));
         this.app.use(this.orderRequestPath, require('../routes/order_request'));
-        this.app.use(this.orderInfoPath, require('../routes/order_info'));
+
     }
 
     listen(){
-        this.app.listen(this.port, ()=>{
-            console.log('Servidor corriendo en el puerto', this.port);
+        const server_io = server.createServer(this.app);
+        const IO = io(server_io, {cors:{origin: '*'}})
+        //llama a los socket
+        orderSocket(IO);
+
+        server_io.listen(this.port, ()=>{
+            console.log('Servidor corriendo en el puerto:', this.port);
         });
     }
 

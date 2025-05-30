@@ -65,9 +65,9 @@ const OrderSchema = Schema({
     is_calification:{
         type: Boolean,
     },
-    created_at:{
-        type: String
-    },
+    
+},{
+    timestamps: true
 });
 
 module.exports = model('Orders', OrderSchema);

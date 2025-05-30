@@ -7,6 +7,7 @@ router.post('/create', [ validateJWT ], OrderRequest.create);
 router.put('/update',  [ validateJWT ], OrderRequest.update);
 router.get('/getAll',  [ validateJWT ], OrderRequest.getAll);
 router.get('/getByIdUser/:id_user', [ validateJWT ], OrderRequest.getByIdUser);
+router.get('/getByStatus/:status', [ validateJWT ], OrderRequest.getByStatus);
 router.delete('/delete/:id', [ validateJWT ], OrderRequest.delete);
   
 module.exports = router;
