@@ -65,6 +65,13 @@ const OrderSchema = Schema({
     is_calification:{
         type: Boolean,
     },
+    distance:{
+        type: Number
+    },
+    time:{
+        type: Number
+    },
+    
     
 },{
     timestamps: true

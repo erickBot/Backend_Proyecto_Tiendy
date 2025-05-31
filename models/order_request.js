@@ -65,6 +65,12 @@ const OrderRequestSchema = Schema({
     is_calification:{
         type: Boolean,
     },
+    distance:{
+        type: Number
+    },
+    time:{
+        type: Number
+    },
     created_at:{
         type: String
     },
