@@ -20,7 +20,7 @@ class Server{
         this.rolPath = '/api/roles'
         this.orderPath = '/api/orders'
         //para los clientes
-        this.orderRequestPath = '/api/orders_request'
+        this.orderRequestPath = '/api/orders/request'
         //conectar a base de datos
         this.connectDB();
         //Middlewares
