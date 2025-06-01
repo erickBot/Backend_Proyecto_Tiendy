@@ -55,13 +55,13 @@ module.exports = {
 
         try{
 
-            const { id, name, phone, img, rol } = req.body;
+            const { id, name, phone, img, rol, notification_token } = req.body;
 
             const data = {
-                name, phone, img, rol
+                name, phone, img, rol, notification_token
             };
 
-            console.log(data);
+            //console.log(data);
 
             const user = await User.findByIdAndUpdate( id, data, {new: true});
 
