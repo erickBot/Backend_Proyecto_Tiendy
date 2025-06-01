@@ -45,6 +45,10 @@ const UsersSchema = Schema({
         type: Schema.Types.ObjectId,
         ref:'stores'
     },
+    notification_token:{
+        type: String
+    }
+
 });
 
 module.exports = model('Users', UsersSchema);
