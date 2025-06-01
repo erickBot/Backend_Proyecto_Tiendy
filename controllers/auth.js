@@ -50,8 +50,7 @@ module.exports = {
                 "img":myUser.img,
                 "phone":myUser.phone,
                 "token": token,
-                "id_store":myUser.id_store,
-                "notification_token": myUser.notification_token
+                "id_store":myUser.id_store
             }
            
             res.status(201).json({
@@ -135,8 +134,7 @@ module.exports = {
                 "img": user.img,
                 "phone":user.phone,
                 "token": token,
-                "id_store":user.id_store,
-                "notification_token": user.notification_token
+                "id_store":user.id_store
             }             
             
             res.status(201).json({
