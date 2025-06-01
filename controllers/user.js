@@ -56,19 +56,17 @@ module.exports = {
         try{
 
             const { id, name, phone, img, rol, notification_token } = req.body;
+           // const body  = req.body;
 
             const data = {
                 name, phone, img, rol, notification_token
             };
 
-            //console.log(data);
-
-            const user = await User.findByIdAndUpdate( id, data, {new: true});
+            await User.findByIdAndUpdate( id, data, {new: true});
 
             res.status(201).json({
                 msg: 'Usuario actualizado correctamente',
-                success: true,
-                data: user
+                success: true
             });
 
         }catch(err){

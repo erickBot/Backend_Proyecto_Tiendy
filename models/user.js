@@ -46,7 +46,7 @@ const UsersSchema = Schema({
         ref:'stores'
     },
     notification_token:{
-        type: String
+        type: String,
     }
 
 });
