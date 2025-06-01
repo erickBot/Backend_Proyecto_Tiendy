@@ -71,7 +71,10 @@ const OrderSchema = Schema({
     time:{
         type: Number
     },
-    
+    items:{
+        type: Array,
+        default: []
+    },
     
 },{
     timestamps: true

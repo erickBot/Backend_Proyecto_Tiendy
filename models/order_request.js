@@ -74,6 +74,10 @@ const OrderRequestSchema = Schema({
     created_at:{
         type: String
     },
+    items:{
+        type: Array,
+        default: []
+    },
 });
 
 module.exports = model('Order_Requests', OrderRequestSchema);

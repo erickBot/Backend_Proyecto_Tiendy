@@ -18,13 +18,10 @@ module.exports = (io) =>{
             socket.on('order/request/update', (data)=>{
                 //console.log('CLIENTE ENITIO: ',data);
                 updateOrderRequest(data.order);
-                //actualiza ID de order
-                // data.order._id = data.order.id_store;
-                // updateOrderInfo(data.order);
             });
             //escucha y emite una order info 
             socket.on('order/info', (data) => {
-                console.log(`Emitio: ${JSON.stringify(data.order._id)}`);
+                //console.log(`Emitio: ${JSON.stringify(data.order._id)}`);
                 orderRequestNameSapace.emit(`order/info/${data.order._id}`, data.order);
             });
             //crear una order aceptada
