@@ -62,7 +62,10 @@ const OrderSchema = Schema({
         type: Object,
         ref: 'stores'
     },
-    is_calification:{
+    is_store_calificated:{
+        type: Boolean,
+    },
+    is_client_calificated:{
         type: Boolean,
     },
     distance:{

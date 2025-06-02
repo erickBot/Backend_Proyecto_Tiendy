@@ -75,6 +75,9 @@ const StoreSchema = Schema({
     country:{
         type: String,
     },
+    notification_token:{
+        type: String,
+    }
 });
 
 module.exports = model('Stores', StoreSchema);

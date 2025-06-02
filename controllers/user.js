@@ -62,6 +62,8 @@ module.exports = {
                 name, phone, img, rol, notification_token
             };
 
+            //console.log(data);
+
             await User.findByIdAndUpdate( id, data, {new: true});
 
             res.status(201).json({
