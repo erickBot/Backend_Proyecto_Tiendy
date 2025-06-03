@@ -64,9 +64,11 @@ const OrderSchema = Schema({
     },
     is_store_calificated:{
         type: Boolean,
+        default: false
     },
     is_client_calificated:{
         type: Boolean,
+        default: false
     },
     distance:{
         type: Number

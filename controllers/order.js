@@ -1,5 +1,7 @@
 const express = require('express');
 const Order = require ('../models/order');
+const Store = require('../models/store');
+const Client = require('../models/user');
 
 module.exports = {
 
@@ -98,8 +100,25 @@ module.exports = {
         try{
     
             const {_id, ...body} = req.body;
-           
+            //actualiza la order
             await Order.findByIdAndUpdate( _id, body, {new: true} );
+            //actualizar store con numero de ventas y cliente con numero de compras
+            if (body.status == 'Entregado'){
+                //numero de ventas del local
+                const list = await Order.find({'id_store':body.id_store});
+                const data = {
+                    quantity: list.length,
+                }
+                await Store.findByIdAndUpdate(body.id_store, data, {new: true});
+                //numero de compras del cliente
+                const orderList =  await Order.find({'id_client':body.id_client});
+
+                  const dataClient = {
+                    quantity: orderList.length,
+                }
+
+                await Client.findByIdAndUpdate(body.id_client, dataClient, {new: true});
+            }
     
             res.status(201).json({
                 msg: 'Tu orden fue actualizada correctamente',

@@ -47,6 +47,14 @@ const UsersSchema = Schema({
     },
     notification_token:{
         type: String,
+    },
+    quantity:{
+        type: Number,
+        default: 0
+    },
+    rating:{
+        type: Number,
+        default: 0
     }
 
 });

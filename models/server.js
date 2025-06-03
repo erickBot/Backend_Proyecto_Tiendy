@@ -21,6 +21,8 @@ class Server{
         this.orderPath = '/api/orders'
         //para los clientes
         this.orderRequestPath = '/api/orders/request'
+        this.calificationStorePath = '/api/calification/store'
+        this.calificationClientPath = '/api/calification/client'
         //conectar a base de datos
         this.connectDB();
         //Middlewares
@@ -56,6 +58,8 @@ class Server{
         this.app.use(this.rolPath, require('../routes/rol'));
         this.app.use(this.orderPath, require('../routes/order'));
         this.app.use(this.orderRequestPath, require('../routes/order_request'));
+        this.app.use(this.calificationStorePath, require('../routes/calification_store'));
+        this.app.use(this.calificationClientPath, require('../routes/calification_client'));
 
     }
 

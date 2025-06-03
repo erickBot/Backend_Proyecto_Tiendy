@@ -75,6 +75,10 @@ const StoreSchema = Schema({
     country:{
         type: String,
     },
+    quantity:{
+        type: Number,
+        default: 0
+    },
     notification_token:{
         type: String,
     }
