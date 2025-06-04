@@ -48,8 +48,6 @@ module.exports = {
         try{
 
             const { name_store, ... body} = req.body;
-
-            console.log(body);
             //validar si existe 
             const myStore = await Store.findOne({'name_store':name_store});
             
