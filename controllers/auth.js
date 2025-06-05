@@ -96,6 +96,8 @@ module.exports = {
         try{
             const { id_token }  = req.body;
 
+            console.log(id_token);
+
             const { name, email, picture} = await googleVerify(id_token);
 
             let user = await User.findOne({ email });
