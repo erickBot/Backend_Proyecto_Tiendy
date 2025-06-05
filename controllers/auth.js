@@ -100,9 +100,11 @@ module.exports = {
 
             const { name, email, picture} = await googleVerify(id_token);
 
+
+            console.log('USER', name, email, picture);
+
             let user = await User.findOne({ email });
 
-            console.log('USER', user);
   
             if (!user){
                 //crearlo
