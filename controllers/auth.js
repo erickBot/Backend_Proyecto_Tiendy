@@ -105,7 +105,7 @@ module.exports = {
 
             console.log('Token aud:', payload.aud);
 
-            //const { name, email, picture} = await googleVerify(id_token);
+            const { name, email, picture} = await googleVerify(id_token);
 
 
             console.log('USER', name, email, picture);
