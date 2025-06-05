@@ -96,9 +96,16 @@ module.exports = {
         try{
             const { id_token }  = req.body;
 
-            console.log(id_token);
+   
+            const base64Url = id_token.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const buff = Buffer.from(base64, 'base64');
+            const payload = JSON.parse(buff.toString('utf-8'));
+     
 
-            const { name, email, picture} = await googleVerify(id_token);
+            console.log('Token aud:', payload.aud);
+
+            //const { name, email, picture} = await googleVerify(id_token);
 
 
             console.log('USER', name, email, picture);
