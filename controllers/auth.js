@@ -39,6 +39,8 @@ module.exports = {
                     success: false
                 });
             }
+            //guarda token en DB
+            await User.findByIdAndUpdate( myUser.id, {'token': token}, {new: true});
             //construye la data que se debe devolver al usuario
             const body = {
                 "id": myUser.id,
@@ -124,7 +126,6 @@ module.exports = {
                 user = new User( data );
                 await user.save();
 
-
             }
             //si el usuario de google en DB es false
             if (!user.status){
@@ -136,6 +137,8 @@ module.exports = {
 
             //generar JWT
             const token = await Jwt.generarJWT(user.id);
+            //guarda token en DB
+            await User.findByIdAndUpdate( user.id, {'token': token}, {new: true});
 
             //construye la data que se debe devolver al usuario
             const body = {

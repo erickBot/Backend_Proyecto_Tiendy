@@ -30,29 +30,19 @@ module.exports = {
         try{
 
             const body = req.body;
-            //validar si existe 
-           const myAddress = await Address.findOne({ 'address':body.address });
-            
-                if (myAddress){
-                    return res.status(400).json({
-                        msg: `La direccion ${ myAddress.address }, ya existe`,
-                        success: false
-                    })
-                }
-
-            //preparar la data a guardar
+            console.log(body);
+       
             const newAddress = new Address( body );
             //almacenar en Mongo DB
            await newAddress.save();
 
             res.status(201).json({
                 msg: 'Direccion creada con exito',
-                data: newAddress,
                 success: true
             });
 
         }catch(err){
-            console.log(err);
+            //console.log(err);
             return res.status(400).json({
                 msg:'Ocurrio un error al crear la direccion',
                 error: err,

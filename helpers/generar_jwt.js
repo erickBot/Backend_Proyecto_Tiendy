@@ -8,7 +8,7 @@ const generarJWT = (uid) =>{
         const payload = { uid };
 
         jwt.sign(payload, Keys.secretOrKey, {
-            expiresIn: '4h'
+            // expiresIn: '4h'
         },(err, token) =>{
             if(err){
                 console.log(err);

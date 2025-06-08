@@ -45,6 +45,9 @@ const UsersSchema = Schema({
         type: Schema.Types.ObjectId,
         ref:'stores'
     },
+    token:{
+        type: String,
+    },
     notification_token:{
         type: String,
     },

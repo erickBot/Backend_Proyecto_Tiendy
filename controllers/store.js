@@ -1,5 +1,7 @@
 const express = require('express');
-const Store = require ('../models/store');
+const Store = require('../models/store');
+const User = require('../models/user');
+const { getDistance } = require('../helpers/get_distance');
 
 module.exports = {
 
@@ -44,6 +46,41 @@ module.exports = {
     
     },
 
+    async getByAddress(req, res){
+    
+        try{
+            const fromLat = req.params.lat;
+            const fromLng = req.params.lng;
+            const storesByDistance = [];
+       
+            const stores = await Store.find();
+       
+            //filtra por distancia
+           for (let store of stores){
+            let toLat = store.lat;
+            let toLng = store.lng;
+             const  distance =  getDistance({fromLat, fromLng, toLat, toLng});
+            //filtra por distancia
+            if (distance <= 1000){
+                storesByDistance.push(store);
+            }
+           }
+    
+            res.status(200).json({
+                data: storesByDistance,
+                success: true
+            });
+    
+        }catch(err){
+            console.log(err);
+            return res.status(400).json({
+                msg:'Ocurrio un error al obtener las tiendas',
+                success: false
+            });
+        }
+    
+    },
+
     async create (req, res){
         try{
 
@@ -65,10 +102,32 @@ module.exports = {
             const store = new Store( data );
             //almacenar en Mongo DB
             await store.save();
+            //actualizar datos del usuario que creo la tienda
+            const roles = {
+                rol:  ['USER_ROLE', 'ADMIN_ROLE'],
+            }
+            //actualiza roles del usuario
+            const myUser =  await User.findByIdAndUpdate( store.id_user, roles, {new: true});
+
+            //construye la data que se va devolver al usuario
+             const response = {
+                "id": myUser.id,
+                "name": myUser.name,
+                "email": myUser.email,
+                "google": myUser.google,
+                "status":myUser.status,
+                "rol": myUser.rol,
+                "img":myUser.img,
+                "phone":myUser.phone,
+                "token": myUser.token,
+                "rating":myUser.rating,
+                "quantity": myUser.quantity
+            }
 
             res.status(201).json({
                 msg: 'Negocio creado correctamente, ahora inicie sesion',
-                success: true
+                success: true,
+                data: response
             });
 
         }catch(err){
