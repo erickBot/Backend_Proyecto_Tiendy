@@ -9,7 +9,11 @@ function getDistance(params) {
         { latitude: toLat, longitude: toLng }
     );
 
-    return distance;
+    const minutes = distance/1.39;
+    minutes = minutes/60;
+
+
+    return { distance, minutes };
 }
 
 module.exports = {

@@ -83,6 +83,14 @@ const StoreSchema = Schema({
         type: Number,
         default: 0
     },
+    distance:{
+        type: Number,
+        default: 0
+    },
+    minute:{
+        type: Number,
+        default: 0
+    },
     notification_token:{
         type: String,
     }

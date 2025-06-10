@@ -59,9 +59,11 @@ module.exports = {
            for (let store of stores){
             let toLat = store.lat;
             let toLng = store.lng;
-             const  distance =  getDistance({fromLat, fromLng, toLat, toLng});
+             const  { distance, minutes } =  getDistance({fromLat, fromLng, toLat, toLng});
             //filtra por distancia
             if (distance <= 1000){
+                store.distance = distance;
+                store.minute = minutes;
                 storesByDistance.push(store);
             }
            }
