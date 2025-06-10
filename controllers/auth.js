@@ -98,18 +98,18 @@ module.exports = {
         try{
             const { id_token }  = req.body;
 
-   
+            //console.log('ID TOKEN:', id_token);
+
             const base64Url = id_token.split('.')[1];
             const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
             const buff = Buffer.from(base64, 'base64');
             const payload = JSON.parse(buff.toString('utf-8'));
 
-            //console.log('Token aud:', payload.aud);
+            // console.log('Token aud:', payload.aud);
 
             const { name, email, picture} = await googleVerify(id_token);
 
             let user = await User.findOne({ email });
-
   
             if (!user){
                 //crearlo

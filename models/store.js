@@ -1,7 +1,11 @@
 const { Schema, model } = require('mongoose');
 
 const StoreSchema = Schema({
-
+    id_category:{
+        type: Schema.Types.ObjectId,
+        ref:'Categories',
+        required: true
+    },
     name_store:{
         type: String,
         required:[true, 'El nombre del negocio es obligatorio'],

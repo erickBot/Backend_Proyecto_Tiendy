@@ -100,6 +100,8 @@ module.exports = {
                      ...body, name_store, rating: 0, promotion: 0, available: true, open: false
             }
             const store = new Store( data );
+
+            //console.log('STORE:', store);
             //almacenar en Mongo DB
             await store.save();
             //actualizar datos del usuario que creo la tienda
