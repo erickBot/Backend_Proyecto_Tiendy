@@ -4,12 +4,12 @@ function getDistance(params) {
 
     const { fromLat, fromLng, toLat, toLng } = params;
 
-    const distance =  geolib.getDistance(
+    let distance =  geolib.getDistance(
         { latitude: fromLat, longitude: fromLng },
         { latitude: toLat, longitude: toLng }
     );
 
-    const minutes = distance/1.39;
+    let minutes = distance/1.39;
     minutes = minutes/60;
 
 
